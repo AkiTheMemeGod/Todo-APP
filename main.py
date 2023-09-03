@@ -2,11 +2,11 @@ import functions as fn
 import PySimpleGUI as pg
 
 label = pg.Text("Type in a todo")
-inputbox = pg.InputText(tooltip="enter here", key= "todo", size=[35])
-button_add = pg.Button("Add" )
+entry_box = pg.InputText(tooltip="enter here", key="todo", size=(35, 1))
+button_add = pg.Button("Add")
 button_edit = pg.Button("Edit")
 button_delete = pg.Button("Delete")
-listbox = pg.Listbox(values=fn.get_todos(), key ='todos' , enable_events=True, size=[25,10])
+listbox = pg.Listbox(values=fn.get_todos(), key='todos', enable_events=True, size=(35, 10))
 window = pg.Window('My Todo App',
                    resizable=True,
                    ttk_theme="default",
@@ -14,7 +14,7 @@ window = pg.Window('My Todo App',
                    margins=(3, 3),
                    auto_size_text=True,
                    auto_size_buttons=True,
-                   layout=[[label],[inputbox, button_add],[listbox,button_edit, button_delete ]],
+                   layout=[[label], [entry_box, button_add], [listbox, button_edit, button_delete]],
                    font=('Impact', 16),
                    background_color="yellow",
                    button_color="red",
@@ -49,4 +49,3 @@ while True:
         case pg.WINDOW_CLOSED:
             break
 window.close()
-
