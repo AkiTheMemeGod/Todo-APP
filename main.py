@@ -6,19 +6,18 @@ entry_box = pg.InputText(tooltip="enter here", key="todo", size=(35, 1))
 button_add = pg.Button("Add")
 button_edit = pg.Button("Edit")
 button_delete = pg.Button("Delete")
-listbox = pg.Listbox(values=fn.get_todos(), key='todos', enable_events=True, size=(35, 10))
+listbox = pg.Listbox(values=fn.get_todos(), key='todos', enable_events=True, size=(35, 10),
+                     background_color="#2b2d30",
+                     text_color="#ebebeb")
 window = pg.Window('My Todo App',
                    resizable=True,
-                   ttk_theme="default",
                    element_justification="center",
                    margins=(3, 3),
                    auto_size_text=True,
-                   auto_size_buttons=True,
                    layout=[[label], [entry_box, button_add], [listbox, button_edit, button_delete]],
                    font=('Impact', 16),
-                   background_color="yellow",
-                   button_color="red",
-                   use_ttk_buttons=True)
+                   background_color="#1e1f22",
+                   button_color="#64778d")
 while True:
     event, values = window.read()
     # print(event)
