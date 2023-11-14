@@ -1,11 +1,14 @@
 import functions as fn
 import PySimpleGUI as pg
+from tkinter import messagebox as mb
+
 
 label = pg.Text("Type in a todo")
 entry_box = pg.InputText(tooltip="enter here", key="todo", size=(35, 1))
 button_add = pg.Button("Add")
 button_edit = pg.Button("Edit")
 button_delete = pg.Button("Delete")
+reminder_button = pg.Button("Email me ;)")
 listbox = pg.Listbox(values=fn.get_todos(), key='todos', enable_events=True, size=(35, 10),
                      background_color="#2b2d30",
                      text_color="#ebebeb")
@@ -14,7 +17,7 @@ window = pg.Window('My Todo App',
                    element_justification="center",
                    margins=(3, 3),
                    auto_size_text=True,
-                   layout=[[label], [entry_box, button_add], [listbox, button_edit, button_delete]],
+                   layout=[[label], [entry_box, button_add], [listbox, button_edit, button_delete],[reminder_button]],
                    font=('Impact', 16),
                    background_color="#1e1f22",
                    button_color="#64778d")
@@ -45,6 +48,13 @@ while True:
             todos.remove(selected)
             fn.put_todos(todos)
             window['todos'].update(values=todos)
+        case "Email me ;)":
+            selected = values['todos'][0]
+            # print(type(selected))
+            # selected = "This is Friendly Remainder : " + selected
+            fn.send_mail(selected)
+            mb.showinfo(title="TODO APP",
+                        message="Email has been sent")
         case pg.WINDOW_CLOSED:
             break
 window.close()
