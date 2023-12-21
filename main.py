@@ -7,7 +7,8 @@ label = pg.Text("Type in a todo")
 entry_box = pg.InputText(tooltip="enter here", key="todo", size=(35, 1))
 button_add = pg.Button("Add")
 button_edit = pg.Button("Edit")
-button_delete = pg.Button("Delete")
+button_delete = pg.Button("Complete")
+exit_button = pg.Button("Exit")
 reminder_button = pg.Button("Email me ;)")
 listbox = pg.Listbox(values=fn.get_todos(), key='todos', enable_events=True, size=(35, 10),
                      background_color="#2b2d30",
@@ -17,7 +18,10 @@ window = pg.Window('My Todo App',
                    element_justification="center",
                    margins=(3, 3),
                    auto_size_text=True,
-                   layout=[[label], [entry_box, button_add], [listbox, button_edit, button_delete],[reminder_button]],
+                   layout=[[label],
+                           [entry_box, button_add],
+                           [listbox, button_edit, button_delete],
+                           [reminder_button,exit_button]],
                    font=('Impact', 16),
                    background_color="#1e1f22",
                    button_color="#64778d")
@@ -40,18 +44,17 @@ while True:
             todos[ind] = new_todo + "\n"
             fn.put_todos(todos)
             window['todos'].update(values=todos)
-            # window.update_animation(time_between_frames=0.2)
-        case "Delete":
+        case "Complete":
             selected = values['todos'][0]
             todos = fn.get_todos()
-            # ind = todos.index(selected)
             todos.remove(selected)
             fn.put_todos(todos)
             window['todos'].update(values=todos)
+        case "Exit":
+            window.close()
         case "Email me ;)":
             selected = values['todos'][0]
-            # print(type(selected))
-            # selected = "This is Friendly Remainder : " + selected
+
             fn.send_mail(selected)
             mb.showinfo(title="TODO APP",
                         message="Email has been sent")
